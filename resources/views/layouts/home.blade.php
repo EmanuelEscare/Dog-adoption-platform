@@ -15,7 +15,7 @@
 @if(Auth::user())
 @php
 if(Auth::user()->rol == 0)
- $solicitudId = DB::table('solicitudes')->where('id_adoptante', Auth::user()->id)->where('estatus', 0)->first();
+ $solicitudId = DB::table('solicitudes')->where('adoptante_id', Auth::user()->id)->where('estatus', 0)->first();
 @endphp
 @endif
         <nav style="border-bottom: 1px #777777 solid;" class="navbar navbar-expand-lg navbar-light bg-white">

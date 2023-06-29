@@ -8,7 +8,7 @@
   <br>
   @php
   
-  $idsolicitudC = DB::table('solicitudes')->where('id_adoptante', Auth::user()->id)->where('estatus', 0)->first();
+  $solicitud_idC = DB::table('solicitudes')->where('adoptante_id', Auth::user()->id)->where('estatus', 0)->first();
 
   @endphp
 
@@ -16,8 +16,8 @@
     <div class="row">
         <div class="col">
             <h2 class="text-left"><i class="fa-solid fa-paw"></i> Carrito #
-            @if ($idsolicitudC)
-            {{$idsolicitudC->id}}
+            @if ($solicitud_idC)
+            {{$solicitud_idC->id}}
             @endif
             </h2>
         </div>
@@ -41,8 +41,8 @@
 
         @foreach ($sperros as $sperro)
         @php
-        $perro = DB::table('perros')->where('id', $sperro->id_perro)->first();
-        $foto = DB::table('detalleperro')->where('id_perro', $perro->id)->first();
+        $perro = DB::table('perros')->where('id', $sperro->perro_id)->first();
+        $foto = DB::table('detalleperro')->where('perro_id', $perro->id)->first();
         @endphp
         <div class="col col-lg-3">
            

@@ -370,7 +370,7 @@ $gos = "Gos d'Atura Catalá";
 
         @foreach ($perros as $perro)
         @php
-        $foto = DB::table('detalleperro')->where('id_perro', $perro->id)->first();
+        $foto = DB::table('detalleperro')->where('perro_id', $perro->id)->first();
         @endphp
         
         <div class="col col-lg-3">

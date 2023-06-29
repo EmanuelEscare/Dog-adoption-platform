@@ -2,7 +2,7 @@
 @foreach ($solicitudes as $solicitud)
 <tr>
     @php
-        $user = DB::table('users')->where('id', $solicitud->id_adoptante)->first();
+        $user = DB::table('users')->where('id', $solicitud->adoptante_id)->first();
     @endphp
     <th class="text-center" scope="row">{{$solicitud->id}}</th>
     <td class="text-center">{{$user->email}}</td>

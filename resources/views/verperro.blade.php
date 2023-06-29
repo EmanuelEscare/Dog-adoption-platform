@@ -6,8 +6,8 @@
 
     </style>
     @php
-     $fotos = DB::table('detalleperro')->where('id_perro', $perro->id)->get();
-     $countfoto = DB::table('detalleperro')->where('id_perro', $perro->id)->count();
+     $fotos = DB::table('detalleperro')->where('perro_id', $perro->id)->get();
+     $countfoto = DB::table('detalleperro')->where('perro_id', $perro->id)->count();
      $numfoto = 0;   
     @endphp
   <br>

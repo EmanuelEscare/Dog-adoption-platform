@@ -31,7 +31,7 @@
 <br>
                         @foreach ($perros as $perro)
                         @php
-                            $info = DB::table('perros')->where('id', $perro->id_perro)->first();
+                            $info = DB::table('perros')->where('id', $perro->perro_id)->first();
                         @endphp
                             <div class="row">
                                 <div class="col-lg-8">
@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="col-lg-4">
                                     @if ($perro->estatus == 1)
-                                    <a style="width: -webkit-fill-available;" target="__blank" href="{{route('imprimir', [$solicitud->id_adoptante , $info->id, $solicitud->id])}}" class="btn btn-primary btn-lg">Imprimir certificado</a>
+                                    <a style="width: -webkit-fill-available;" target="__blank" href="{{route('imprimir', [$solicitud->adoptante_id , $info->id, $solicitud->id])}}" class="btn btn-primary btn-lg">Imprimir certificado</a>
                                     @else
                                     <button style="width: -webkit-fill-available;" type="button" class="btn btn-secondary btn-lg">No disponible</button>
                                     @endif

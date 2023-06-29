@@ -11,7 +11,7 @@
             $ano_diferencia--;
         return $ano_diferencia;
     }
-    $respuesta = DB::table('detallesolicitud')->where('idSolicitud', $solicitud->id)->first();
+    $respuesta = DB::table('detallesolicitud')->where('solicitud_id', $solicitud->id)->first();
     // dd($respuesta);
 @endphp
 
@@ -190,7 +190,7 @@
     @endphp
     @foreach ($perros as $perro)
         @php
-            $info = DB::table('perros')->where('id', $perro->id_perro)->first();
+            $info = DB::table('perros')->where('id', $perro->perro_id)->first();
             $contador = $contador+1;
         @endphp
         <a style="font-size: 1.5rem;" class="link-light" href="{{route('verperro',$info->id)}}" target="_blank">{{$info->nombre }} #{{$info->id}}</a>

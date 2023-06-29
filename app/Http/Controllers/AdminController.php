@@ -71,7 +71,7 @@ class AdminController extends Controller
         $fotoPerro = $fotoPerro->store('/fotos');
 
         DB::table('detalleperro')->insert([
-            'id_perro' => $request->idperro,
+            'perro_id' => $request->idperro,
             'foto_url' => $fotoPerro,
         ]);
 
@@ -106,7 +106,7 @@ class AdminController extends Controller
 
             // Consulta perro
             $perro_id = DB::table('perrosolicitud')->where('id', $request->input($perroId))->first();
-            $perro = DB::table('perros')->where('id', $perro_id->id_perro)->first();
+            $perro = DB::table('perros')->where('id', $perro_id->perro_id)->first();
 
             // Se evaluara por perro y se mandara la resolucion x mail y DB
             if($resolucion){
@@ -121,7 +121,7 @@ class AdminController extends Controller
                      
             DB::table('perros')->where('id', $perro->id)->update(['disponibilidad' => 1]);
             DB::table('solicitudes')->where('id', $perro_id->id_solicitud)->update(['estatus' => 2]);
-            DB::table('perrosolicitud')->where('id_solicitud', $perro_id->id_solicitud)->where('id_perro', $perro->id)->update(['estatus' => 1]);
+            DB::table('perrosolicitud')->where('id_solicitud', $perro_id->id_solicitud)->where('perro_id', $perro->id)->update(['estatus' => 1]);
             }else{
                 // Negar
         
@@ -136,7 +136,7 @@ class AdminController extends Controller
             
             
             DB::table('solicitudes')->where('id', $perro_id->id_solicitud)->update(['estatus' => 2]);
-            DB::table('perrosolicitud')->where('id_solicitud', $perro_id->id_solicitud)->where('id_perro', $perro->id)->update(['estatus' => 2]);
+            DB::table('perrosolicitud')->where('id_solicitud', $perro_id->id_solicitud)->where('perro_id', $perro->id)->update(['estatus' => 2]);
             }
              
         }

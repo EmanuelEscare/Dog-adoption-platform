@@ -23,7 +23,7 @@ use App\Mail\GmailMail;
 // ADOPTANTES
 
 Route::get('/perfil', function () {
-    $solicitudes = DB::table('solicitudes')->where('id_adoptante', Auth::user()->id)->where('estatus', '!=' , 0)->get();
+    $solicitudes = DB::table('solicitudes')->where('adoptante_id', Auth::user()->id)->where('estatus', '!=' , 0)->get();
     return view('perfil')->with('solicitudes', $solicitudes);
 })->name('perfil')->middleware('auth');
 
@@ -80,9 +80,9 @@ Route::get('/eliminarCuenta', function () {
     foreach ($solicitudes as $solicitud) {
         
     DB::table('solicitudes')->where('id', $solicitud->id)->delete();
-    DB::table('detallesolicitud')->where('idSolicitud', $solicitud->id)->delete();
+    DB::table('detallesolicitud')->where('solicitud_id', $solicitud->id)->delete();
 
-    DB::table('perro')->where('id', $solicitud->id_perro)->update(['disponibilidad' => 0]);
+    DB::table('perro')->where('id', $solicitud->perro_id)->update(['disponibilidad' => 0]);
     }
     
     
@@ -141,7 +141,7 @@ Route::post('/solicitudAdopcion', [UserController::class, 'solicitudAdopcion'])-
 
 Route::get('/carrito_perro', function () {
     if(Auth::user()->rol == 0){
-    $solicitudId = DB::table('solicitudes')->where('id_adoptante', Auth::user()->id)->where('estatus', 0)->first();
+    $solicitudId = DB::table('solicitudes')->where('adoptante_id', Auth::user()->id)->where('estatus', 0)->first();
     }else{
         return view('/');
     }
@@ -172,21 +172,21 @@ Route::get('/agregarPerroCarrito/{id}', function ($id) {
         return redirect()->back();
      }
     
-     if(!DB::table('solicitudes')->where('id_adoptante', Auth::user()->id)->where('estatus', 0)->first()){
+     if(!DB::table('solicitudes')->where('adoptante_id', Auth::user()->id)->where('estatus', 0)->first()){
         $solicitud = DB::table('solicitudes')->insert([
             'estatus' => 0,
-            'id_adoptante' => Auth::user()->id
+            'adoptante_id' => Auth::user()->id
         ]);
      }
 
-    $solicitudId = DB::table('solicitudes')->where('id_adoptante', Auth::user()->id)->where('estatus', 0)->first()->id;
+    $solicitudId = DB::table('solicitudes')->where('adoptante_id', Auth::user()->id)->where('estatus', 0)->first()->id;
 
-    if(DB::table('perrosolicitud')->where('id_perro', $id)->where('id_solicitud', $solicitudId)->count()){
+    if(DB::table('perrosolicitud')->where('perro_id', $id)->where('id_solicitud', $solicitudId)->count()){
         return redirect()->back();
     }
 
     $perro = DB::table('perrosolicitud')->insert([
-        'id_perro' => $id,
+        'perro_id' => $id,
         'id_solicitud' => $solicitudId
     ]);
 
@@ -220,7 +220,7 @@ Route::post('/agregarPerro', [AdminController::class, 'agregarPerro'])->name('ag
 
 Route::get('/editar_perro/{id}', function ($id) {
     $perro = DB::table('perros')->where('id', $id)->first();
-    $fotos = DB::table('detalleperro')->where('id_perro', $id)->get();
+    $fotos = DB::table('detalleperro')->where('perro_id', $id)->get();
     return view('admin.editar_perro')->with('perro', $perro)->with('fotos', $fotos);
 })->name('editar_perro');
 
@@ -268,7 +268,7 @@ Route::get('usuarios/search', [AdminController::class, 'searchUsuarios']);
 
 Route::get('/eliminarUsuario/{id}', function ($id) {
     DB::table('users')->where('id', $id)->delete();
-    DB::table('solicitudes')->where('id_adoptante', $id)->delete();
+    DB::table('solicitudes')->where('adoptante_id', $id)->delete();
 
     return redirect()->back()->with('mensaje', '1');
 })->name('eliminarUsuario');
@@ -294,7 +294,7 @@ Route::get('/eliminarSolicitud/{id}', function ($id) {
 
 Route::get('/aprobarNegarVista/{id}', function ($id) {
     $solicitud = DB::table('solicitudes')->where('id', $id)->first();
-    $usuario = DB::table('users')->where('id', $solicitud->id_adoptante)->first();
+    $usuario = DB::table('users')->where('id', $solicitud->adoptante_id)->first();
     
 
     // Vistas
@@ -316,9 +316,9 @@ Route::get('/aprobarNegar/{opcion}/{solicitud}', function ($opcion, $solicitud) 
     // Obtenemos la solicitud a actualizar (Objeto)
     $solicitud = DB::table('solicitudes')->where('id', $solicitud)->first();
     // Obtenemos al usuario de la solicitud a informar
-    $usuario = DB::table('users')->where('id', $solicitud->id_adoptante)->first();
+    $usuario = DB::table('users')->where('id', $solicitud->adoptante_id)->first();
     // Obtenemos información del perro
-    // $perro = DB::table('perros')->where('id', $solicitud->id_perro)->first();
+    // $perro = DB::table('perros')->where('id', $solicitud->perro_id)->first();
 
     if($opcion == 2){
         // Aprobar
@@ -346,7 +346,7 @@ Route::get('/aprobarNegar/{opcion}/{solicitud}', function ($opcion, $solicitud) 
            
     
     
-    // DB::table('perros')->where('id', $solicitud->id_perro)->update(['disponibilidad' => 0]);
+    // DB::table('perros')->where('id', $solicitud->perro_id)->update(['disponibilidad' => 0]);
     DB::table('solicitudes')->where('id', $solicitud->id)->update(['estatus' => 3]);
     }
 
@@ -365,7 +365,7 @@ Route::get('/imprimir/{user}/{perro}/{id}', function ($user, $perro, $id) {
     $perro = DB::table('perros')->where('id', $perro)->first();
     $user = DB::table('users')->where('id', $user)->first();
 
-    $info = ['nombrePerro' => $perro->nombre, 'nombrePersona' => $user->nombre, 'idSolicitud' => $id];
+    $info = ['nombrePerro' => $perro->nombre, 'nombrePersona' => $user->nombre, 'solicitud_id' => $id];
 
 
     $pdf = \PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);

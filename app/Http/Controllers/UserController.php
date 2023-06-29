@@ -70,7 +70,7 @@ class UserController extends Controller
 
         // Crear solicitud canasto
         DB::table('solicitudes')->insert([
-            'id_adoptante' => $user->id,
+            'adoptante_id' => $user->id,
             'estatus' => 0,
         ]);
 
@@ -84,15 +84,15 @@ class UserController extends Controller
 
     public function solicitudAdopcion(Request $request){
         // return $request;
-        $solicitud_id = DB::table('solicitudes')->where('estatus', 0)->where('id_adoptante', Auth::user()->id)->first();
-        $solicitud = DB::table('solicitudes')->where('estatus', 0)->where('id_adoptante', Auth::user()->id)->update([
+        $solicitud_id = DB::table('solicitudes')->where('estatus', 0)->where('adoptante_id', Auth::user()->id)->first();
+        $solicitud = DB::table('solicitudes')->where('estatus', 0)->where('adoptante_id', Auth::user()->id)->update([
             'fecha' => date("Y-m-d"),
             'estatus' => 1,
         ]);
 
 
         DB::table('detallesolicitud')->insert([
-            'idSolicitud' => $solicitud_id->id,
+            'solicitud_id' => $solicitud_id->id,
             'P1'	=>	$request->P1,
             'P2'	=>	$request->P2,
             'P3'	=>	$request->P3,
@@ -120,7 +120,7 @@ class UserController extends Controller
         ]);
         // $solicitud = DB::table('solicitudes')->insert([
         //     'estatus' => 0,
-        //     'id_adoptante' => Auth::user()->id
+        //     'adoptante_id' => Auth::user()->id
         // ]);
         // DB::table('perros')->where('id', $request->idperro)->update(['disponibilidad' => 1]);
 
@@ -181,7 +181,7 @@ class UserController extends Controller
             'P24'	=>	$request->P24
         ]);
 
-        return redirect()->route('modificarSolicitud', ['id' => $request->idsolicitud])->with('mensaje', '1');
+        return redirect()->route('modificarSolicitud', ['id' => $request->solicitud_id])->with('mensaje', '1');
     }
 
 }

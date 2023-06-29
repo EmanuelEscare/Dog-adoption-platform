@@ -66,8 +66,8 @@ $gos = "Gos d'Atura Catalá";
                         @foreach ($solicitudes as $solicitud)
                         <tr>
                             @php
-                                $user = DB::table('users')->where('id', $solicitud->id_adoptante)->first();
-                                // $perro = DB::table('perros')->where('id', $solicitud->id_perro)->first()
+                                $user = DB::table('users')->where('id', $solicitud->adoptante_id)->first();
+                                // $perro = DB::table('perros')->where('id', $solicitud->perro_id)->first()
                             @endphp
                             <th class="text-center" scope="row">{{$solicitud->id}}</th>
                             <td class="text-center">
@@ -77,8 +77,8 @@ $gos = "Gos d'Atura Catalá";
                               @endphp
                               @foreach ($perros as $perro)
                               @php
-                              // dd($perro->id_perro);
-                                  $info = DB::table('perros')->where('id', $perro->id_perro)->first();
+                              // dd($perro->perro_id);
+                                  $info = DB::table('perros')->where('id', $perro->perro_id)->first();
                               @endphp
                               <a href="{{route('verperro',$info->id)}}" target="_blank">{{$info->nombre }} #{{$info->id}}</a>
                               @if ($perro->estatus == 1)

@@ -3,8 +3,8 @@
 {{-- @section('title', 'Realizar pedido') --}}
 @php
 $gos = "Gos d'Atura Catalá";
-// $perro = DB::table('perros')->where('id', $solicitud->id_perro)->first();
-$detalle = DB::table('detallesolicitud')->where('idSolicitud', $solicitud->id)->first();        
+// $perro = DB::table('perros')->where('id', $solicitud->perro_id)->first();
+$detalle = DB::table('detallesolicitud')->where('solicitud_id', $solicitud->id)->first();        
 @endphp
 <div class="container">
     <br>
@@ -31,7 +31,7 @@ $detalle = DB::table('detallesolicitud')->where('idSolicitud', $solicitud->id)->
 
         <form action="{{route('guardarModificarSolicitud')}}" method="POST">
             <input type="hidden" name="id" value="{{$detalle->id}}">
-            <input type="hidden" name="idsolicitud" value="{{$solicitud->id}}">
+            <input type="hidden" name="solicitud_id" value="{{$solicitud->id}}">
 
             @csrf
             <p>	¿Te gustaría cuidar un perro con necesidades especiales?	</p>
