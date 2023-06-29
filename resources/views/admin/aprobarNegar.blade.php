@@ -11,7 +11,7 @@
             $ano_diferencia--;
         return $ano_diferencia;
     }
-    $respuesta = DB::table('detallesolicitud')->where('solicitud_id', $solicitud->id)->first();
+    $respuesta = DB::table('detallesolicitud')->where('solicitudes_id', $solicitud->id)->first();
     // dd($respuesta);
 @endphp
 

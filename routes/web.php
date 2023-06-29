@@ -80,7 +80,7 @@ Route::get('/eliminarCuenta', function () {
     foreach ($solicitudes as $solicitud) {
         
     DB::table('solicitudes')->where('id', $solicitud->id)->delete();
-    DB::table('detallesolicitud')->where('solicitud_id', $solicitud->id)->delete();
+    DB::table('detallesolicitud')->where('solicitudes_id', $solicitud->id)->delete();
 
     DB::table('perro')->where('id', $solicitud->perro_id)->update(['disponibilidad' => 0]);
     }
@@ -365,7 +365,7 @@ Route::get('/imprimir/{user}/{perro}/{id}', function ($user, $perro, $id) {
     $perro = DB::table('perros')->where('id', $perro)->first();
     $user = DB::table('users')->where('id', $user)->first();
 
-    $info = ['nombrePerro' => $perro->nombre, 'nombrePersona' => $user->nombre, 'solicitud_id' => $id];
+    $info = ['nombrePerro' => $perro->nombre, 'nombrePersona' => $user->nombre, 'solicitudes_id' => $id];
 
 
     $pdf = \PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);

@@ -34,7 +34,7 @@ $gos = "Gos d'Atura Catalá";
     <div class="container" style="min-height: 70px;">
         @if (Session::has('mensaje'))
         <div class="alert alert-success  alert-dismissible fade show" role="alert">
-             Se elimino con exito la solicitud de adopción.
+            Se realizó con éxito la acción.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
           @endif

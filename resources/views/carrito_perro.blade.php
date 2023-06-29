@@ -8,7 +8,7 @@
   <br>
   @php
   
-  $solicitud_idC = DB::table('solicitudes')->where('user_id', Auth::user()->id)->where('status', 0)->first();
+  $solicitudes_idC = DB::table('solicitudes')->where('user_id', Auth::user()->id)->where('status', 0)->first();
 
   @endphp
 
@@ -16,8 +16,8 @@
     <div class="row">
         <div class="col">
             <h2 class="text-left"><i class="fa-solid fa-paw"></i> Carrito #
-            @if ($solicitud_idC)
-            {{$solicitud_idC->id}}
+            @if ($solicitudes_idC)
+            {{$solicitudes_idC->id}}
             @endif
             </h2>
         </div>

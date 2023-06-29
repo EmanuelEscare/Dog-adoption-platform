@@ -57,6 +57,6 @@
     <p style="text-align: center;">firma</p>
 
     
-    <p class="id">#{{$info['solicitud_id']}}</p>
+    <p class="id">#{{$info['solicitudes_id']}}</p>
 </body>
 </html>

@@ -84,7 +84,7 @@ class UserController extends Controller
 
     public function solicitudAdopcion(Request $request){
         // return $request;
-        $solicitud_id = DB::table('solicitudes')->where('status', 0)->where('user_id', Auth::user()->id)->first();
+        $solicitudes_id = DB::table('solicitudes')->where('status', 0)->where('user_id', Auth::user()->id)->first();
         $solicitud = DB::table('solicitudes')->where('status', 0)->where('user_id', Auth::user()->id)->update([
             'fecha' => date("Y-m-d"),
             'status' => 1,
@@ -92,7 +92,7 @@ class UserController extends Controller
 
 
         DB::table('detallesolicitud')->insert([
-            'solicitud_id' => $solicitud_id->id,
+            'solicitudes_id' => $solicitudes_id->id,
             'P1'	=>	$request->P1,
             'P2'	=>	$request->P2,
             'P3'	=>	$request->P3,
@@ -181,7 +181,7 @@ class UserController extends Controller
             'P24'	=>	$request->P24
         ]);
 
-        return redirect()->route('modificarSolicitud', ['id' => $request->solicitud_id])->with('mensaje', '1');
+        return redirect()->route('modificarSolicitud', ['id' => $request->solicitudes_id])->with('mensaje', '1');
     }
 
 }
