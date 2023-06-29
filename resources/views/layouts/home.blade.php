@@ -15,7 +15,7 @@
 @if(Auth::user())
 @php
 if(Auth::user()->rol == 0)
- $solicitudId = DB::table('solicitudes')->where('adoptante_id', Auth::user()->id)->where('estatus', 0)->first();
+ $solicitudId = DB::table('solicitudes')->where('user_id', Auth::user()->id)->where('status', 0)->first();
 @endphp
 @endif
         <nav style="border-bottom: 1px #777777 solid;" class="navbar navbar-expand-lg navbar-light bg-white">
@@ -40,7 +40,7 @@ if(Auth::user()->rol == 0)
                   @if(Auth::user()->rol == 0)
                   <a style="margin-left: 5px; border: 0px;" class="btn btn-secondary boton" href="{{route('carrito_perro')}}"><i class="fa-solid fa-cart-shopping"></i>
                     @if ($solicitudId)
-                    {{DB::table('perrosolicitud')->where('id_solicitud', $solicitudId->id)->count()}}</a>
+                    {{DB::table('perrosolicitud')->where('solicitudes_id', $solicitudId->id)->count()}}</a>
                     @endif
                   @endif
 

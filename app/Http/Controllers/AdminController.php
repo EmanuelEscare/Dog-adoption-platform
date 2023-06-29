@@ -84,7 +84,7 @@ class AdminController extends Controller
     }
     
     public function searchsolicitudes(Request $request){
-        $solicitudes =  DB::table('solicitudes')->where('estatus', '!=' , 0)->where("id",'like',$request->text."%")->take(3)->get();
+        $solicitudes =  DB::table('solicitudes')->where('status', '!=' , 0)->where("id",'like',$request->text."%")->take(3)->get();
         return view("pages.solicitudes",compact("solicitudes"));        
     }
     
@@ -114,35 +114,35 @@ class AdminController extends Controller
             $mailData = [
                 'title' => 'Se aprobo la adopción de '.$perro->nombre.' #'.$perro->id,
                 'type' => '1',
-                'body' => 'Le informamos que la adopción ha sido aceptada, podrá pasar por los perro(s) dentro de nuestros horarios. folio de solicitud #'.$perro_id->id_solicitud.''
+                'body' => 'Le informamos que la adopción ha sido aceptada, podrá pasar por los perro(s) dentro de nuestros horarios. folio de solicitud #'.$perro_id->solicitudes_id.''
             ];
                  
             Mail::to('emaescov@gmail.com')->send(new GmailMail($mailData));
                      
             DB::table('perros')->where('id', $perro->id)->update(['disponibilidad' => 1]);
-            DB::table('solicitudes')->where('id', $perro_id->id_solicitud)->update(['estatus' => 2]);
-            DB::table('perrosolicitud')->where('id_solicitud', $perro_id->id_solicitud)->where('perro_id', $perro->id)->update(['estatus' => 1]);
+            DB::table('solicitudes')->where('id', $perro_id->solicitudes_id)->update(['status' => 2]);
+            DB::table('perrosolicitud')->where('solicitudes_id', $perro_id->solicitudes_id)->where('perro_id', $perro->id)->update(['status' => 1]);
             }else{
                 // Negar
         
                 $mailData = [
                     'title' => 'Se nego la adopción de '.$perro->nombre.' #'.$perro->id,
                     'type' => '2',
-                    'body' => 'Le informamos que su solicitud de adopción ha sido negada, ya que no cumple con los criterios para la adopción, para más información marque al 3317009646. folio de solicitud #'.$perro_id->id_solicitud.''
+                    'body' => 'Le informamos que su solicitud de adopción ha sido negada, ya que no cumple con los criterios para la adopción, para más información marque al 3317009646. folio de solicitud #'.$perro_id->solicitudes_id.''
                 ];
                  
                 Mail::to('emaescov@gmail.com')->send(new GmailMail($mailData));
                    
             
             
-            DB::table('solicitudes')->where('id', $perro_id->id_solicitud)->update(['estatus' => 2]);
-            DB::table('perrosolicitud')->where('id_solicitud', $perro_id->id_solicitud)->where('perro_id', $perro->id)->update(['estatus' => 2]);
+            DB::table('solicitudes')->where('id', $perro_id->solicitudes_id)->update(['status' => 2]);
+            DB::table('perrosolicitud')->where('solicitudes_id', $perro_id->solicitudes_id)->where('perro_id', $perro->id)->update(['status' => 2]);
             }
              
         }
 
 
-    return redirect()->route('verResolucion',$perro_id->id_solicitud)->with('resolucion', 'La resolucion de la solicitud a sido guardada y enviada al adoptante');
+    return redirect()->route('verResolucion',$perro_id->solicitudes_id)->with('resolucion', 'La resolucion de la solicitud a sido guardada y enviada al adoptante');
     }
 
 

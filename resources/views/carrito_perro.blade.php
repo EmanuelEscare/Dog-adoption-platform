@@ -8,7 +8,7 @@
   <br>
   @php
   
-  $solicitud_idC = DB::table('solicitudes')->where('adoptante_id', Auth::user()->id)->where('estatus', 0)->first();
+  $solicitud_idC = DB::table('solicitudes')->where('user_id', Auth::user()->id)->where('status', 0)->first();
 
   @endphp
 

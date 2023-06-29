@@ -185,7 +185,7 @@
     <h2 style="color: white;">Perros: </h2>
     <br>
     @php
-        $perros = DB::table('perrosolicitud')->where('id_solicitud', $solicitud->id)->get();
+        $perros = DB::table('perrosolicitud')->where('solicitudes_id', $solicitud->id)->get();
         $contador = 0;
     @endphp
     @foreach ($perros as $perro)

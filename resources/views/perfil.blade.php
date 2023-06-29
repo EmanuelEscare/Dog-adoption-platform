@@ -54,7 +54,7 @@ $gos = "Gos d'Atura Catalá";
                         <tr>
                           <th class="text-center" scope="col">FOLIO</th>
                           <th class="text-center" scope="col">PERROS</th>
-                          <th class="text-center" scope="col">ESTATUS</th>
+                          <th class="text-center" scope="col">status</th>
                           <th class="text-center" scope="col">FECHA</th>
                           <th class="text-center" scope="col">MODIFICAR</th>
                           <th class="text-center" scope="col">ELIMINAR</th>
@@ -66,14 +66,14 @@ $gos = "Gos d'Atura Catalá";
                         @foreach ($solicitudes as $solicitud)
                         <tr>
                             @php
-                                $user = DB::table('users')->where('id', $solicitud->adoptante_id)->first();
+                                $user = DB::table('users')->where('id', $solicitud->user_id)->first();
                                 // $perro = DB::table('perros')->where('id', $solicitud->perro_id)->first()
                             @endphp
                             <th class="text-center" scope="row">{{$solicitud->id}}</th>
                             <td class="text-center">
                               {{-- Perros solicitados --}}
                               @php
-                              $perros = DB::table('perrosolicitud')->where('id_solicitud', $solicitud->id)->get();
+                              $perros = DB::table('perrosolicitud')->where('solicitudes_id', $solicitud->id)->get();
                               @endphp
                               @foreach ($perros as $perro)
                               @php
@@ -81,7 +81,7 @@ $gos = "Gos d'Atura Catalá";
                                   $info = DB::table('perros')->where('id', $perro->perro_id)->first();
                               @endphp
                               <a href="{{route('verperro',$info->id)}}" target="_blank">{{$info->nombre }} #{{$info->id}}</a>
-                              @if ($perro->estatus == 1)
+                              @if ($perro->status == 1)
                               &nbsp; &nbsp;<i style="color: green;" class="fa-solid fa-circle-check"></i>
                               @else
                               &nbsp; &nbsp;<i style="color: red;" class="fa-solid fa-circle-xmark"></i>
@@ -90,10 +90,10 @@ $gos = "Gos d'Atura Catalá";
                               @endforeach
                             </td>
                             <td class="text-center">
-                              @if ($solicitud->estatus == 1)
+                              @if ($solicitud->status == 1)
                               Pendiente
                               @endif
-                              @if ($solicitud->estatus == 2)
+                              @if ($solicitud->status == 2)
                               Finalizada
                               @endif
                             </td>

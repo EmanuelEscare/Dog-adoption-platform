@@ -34,7 +34,7 @@
                           <tr>
                             <th class="text-center" scope="col">FOLIO</th>
                             <th class="text-center" scope="col">USUARIO</th>
-                            <th class="text-center" scope="col">ESTATUS</th>
+                            <th class="text-center" scope="col">status</th>
                             <th class="text-center" scope="col">FECHA</th>
                             <th class="text-center" scope="col">APROBAR/NEGAR</th>
                             <th class="text-center" scope="col">ELIMINAR</th>

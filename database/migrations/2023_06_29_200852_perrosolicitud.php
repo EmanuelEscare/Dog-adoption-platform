@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('perrosolicitud', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_solicitud');
-            $table->foreign('id_solicitud')->references('id')->on('solicitudes')->onDelete('cascade');
+            $table->unsignedBigInteger('solicitudes_id');
+            $table->foreign('solicitudes_id')->references('id')->on('solicitudes')->onDelete('cascade');
             $table->unsignedBigInteger('perro_id');
             $table->foreign('perro_id')->references('id')->on('perros')->onDelete('cascade');
-            $table->integer('estatus')->default(0);
+            $table->integer('status')->default(0);
             // Agrega aquí cualquier otra columna que necesites
             $table->timestamps();
         });

@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('solicitudes', function (Blueprint $table) {
             $table->id();
             $table->date('fecha')->nullable();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->char('estatus');
-            // Agrega aquí cualquier otra columna que necesites
+            $table->foreignId('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+            $table->char('status');
             $table->timestamps();
         });
     }

@@ -70,8 +70,8 @@ class UserController extends Controller
 
         // Crear solicitud canasto
         DB::table('solicitudes')->insert([
-            'adoptante_id' => $user->id,
-            'estatus' => 0,
+            'user_id' => $user->id,
+            'status' => 0,
         ]);
 
         return redirect()->to('/');
@@ -84,10 +84,10 @@ class UserController extends Controller
 
     public function solicitudAdopcion(Request $request){
         // return $request;
-        $solicitud_id = DB::table('solicitudes')->where('estatus', 0)->where('adoptante_id', Auth::user()->id)->first();
-        $solicitud = DB::table('solicitudes')->where('estatus', 0)->where('adoptante_id', Auth::user()->id)->update([
+        $solicitud_id = DB::table('solicitudes')->where('status', 0)->where('user_id', Auth::user()->id)->first();
+        $solicitud = DB::table('solicitudes')->where('status', 0)->where('user_id', Auth::user()->id)->update([
             'fecha' => date("Y-m-d"),
-            'estatus' => 1,
+            'status' => 1,
         ]);
 
 
@@ -119,8 +119,8 @@ class UserController extends Controller
             'P24'	=>	$request->P24
         ]);
         // $solicitud = DB::table('solicitudes')->insert([
-        //     'estatus' => 0,
-        //     'adoptante_id' => Auth::user()->id
+        //     'status' => 0,
+        //     'user_id' => Auth::user()->id
         // ]);
         // DB::table('perros')->where('id', $request->idperro)->update(['disponibilidad' => 1]);
 

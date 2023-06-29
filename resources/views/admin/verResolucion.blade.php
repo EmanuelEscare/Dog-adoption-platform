@@ -12,7 +12,7 @@
         return $ano_diferencia;
     }
 
-    $perros = DB::table('perrosolicitud')->where('id_solicitud', $solicitud->id)->get();
+    $perros = DB::table('perrosolicitud')->where('solicitudes_id', $solicitud->id)->get();
 @endphp
 
     <div class="container">
@@ -38,8 +38,8 @@
                                     <h2>#{{$info->id}} | <a target="__blank" href="{{route('verperro',$info->id)}}">{{$info->nombre}}</a></h2>
                                 </div>
                                 <div class="col-lg-4">
-                                    @if ($perro->estatus == 1)
-                                    <a style="width: -webkit-fill-available;" target="__blank" href="{{route('imprimir', [$solicitud->adoptante_id , $info->id, $solicitud->id])}}" class="btn btn-primary btn-lg">Imprimir certificado</a>
+                                    @if ($perro->status == 1)
+                                    <a style="width: -webkit-fill-available;" target="__blank" href="{{route('imprimir', [$solicitud->user_id , $info->id, $solicitud->id])}}" class="btn btn-primary btn-lg">Imprimir certificado</a>
                                     @else
                                     <button style="width: -webkit-fill-available;" type="button" class="btn btn-secondary btn-lg">No disponible</button>
                                     @endif

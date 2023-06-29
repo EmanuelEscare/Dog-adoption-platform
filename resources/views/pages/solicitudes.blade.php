@@ -2,15 +2,15 @@
 @foreach ($solicitudes as $solicitud)
 <tr>
     @php
-        $user = DB::table('users')->where('id', $solicitud->adoptante_id)->first();
+        $user = DB::table('users')->where('id', $solicitud->user_id)->first();
     @endphp
     <th class="text-center" scope="row">{{$solicitud->id}}</th>
     <td class="text-center">{{$user->email}}</td>
     <td class="text-center">
-        @if ($solicitud->estatus == 1)
+        @if ($solicitud->status == 1)
             Pendiente
         @endif
-        @if ($solicitud->estatus == 2)
+        @if ($solicitud->status == 2)
             Finalizada
         @endif
 
@@ -18,10 +18,10 @@
     <td class="text-center">{{$solicitud->fecha}}</td>
     <td class="text-center">
       <div class="d-grid gap-2">
-        @if ($solicitud->estatus == 1)
+        @if ($solicitud->status == 1)
         <a href="{{route('aprobarNegarVista',$solicitud->id)}}" class="btn btn-warning"><i style="color: white;" class="fa-solid fa-file"></i></a>
         @endif
-        @if ($solicitud->estatus == 2)
+        @if ($solicitud->status == 2)
         <a href="{{route('verResolucion',$solicitud->id)}}" class="btn btn-primary">Ver Resolución</a>
         @endif
       </div>

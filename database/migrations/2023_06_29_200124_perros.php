@@ -15,11 +15,14 @@ return new class extends Migration
     {
         Schema::create('perros', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('raza');
+            $table->string('nombre', 30);
+            $table->string('raza', 255);
             $table->integer('edad');
             $table->integer('peso');
-            // Agrega aquí cualquier otra columna que necesites
+            $table->tinyInteger('sexo');
+            $table->string('descripcion', 1000)->nullable();
+            $table->integer('disponibilidad');
+            $table->date('fecha_registro');
             $table->timestamps();
         });
     }
